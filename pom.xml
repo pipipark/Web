@@ -1,0 +1,168 @@
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+	<modelVersion>4.0.0</modelVersion>
+	<groupId>com.pipipark</groupId>
+	<artifactId>Web</artifactId>
+	<version>1.0</version>
+	<packaging>pom</packaging>
+	<name>PPPark-Web</name>
+
+	<organization>
+		<name>www.pipipark.com</name>
+		<url>http://www.pipipark.com</url>
+	</organization>
+
+	<properties>
+		<jdk.version>1.8</jdk.version>
+		<encoding>UTF-8</encoding>
+		<plugin.javadoc.version>2.9.1</plugin.javadoc.version>
+		<plugin.source.version>3.0.0</plugin.source.version>
+		<plugin.compiler.version>3.5</plugin.compiler.version>
+		<nexus.host>http://liuyunpipi.xicp.net:8081</nexus.host>
+	</properties>
+
+	<dependencies>
+		<dependency>
+			<groupId>com.pipipark</groupId>
+			<artifactId>Commons</artifactId>
+			<version>1.0</version>
+		</dependency>
+
+		<!-- servlet -->
+		<dependency>
+			<groupId>javax.servlet</groupId>
+			<artifactId>javax.servlet-api</artifactId>
+			<version>3.1.0</version>
+		</dependency>
+
+		<!-- jsp -->
+		<dependency>
+			<groupId>javax.servlet.jsp</groupId>
+			<artifactId>jsp-api</artifactId>
+			<version>2.2</version>
+		</dependency>
+
+		<!-- taglibs标签 -->
+		<dependency>
+			<groupId>taglibs</groupId>
+			<artifactId>standard</artifactId>
+			<version>1.1.2</version>
+		</dependency>
+
+		<!-- jstl标签 -->
+		<dependency>
+			<groupId>javax.servlet</groupId>
+			<artifactId>jstl</artifactId>
+			<version>1.2</version>
+		</dependency>
+
+
+
+
+		<!-- 源码插件, https://mvnrepository.com/artifact/org.apache.maven.plugins/maven-source-plugin -->
+		<dependency>
+			<groupId>org.apache.maven.plugins</groupId>
+			<artifactId>maven-source-plugin</artifactId>
+			<version>${plugin.source.version}</version>
+		</dependency>
+		<!-- 编译插件, https://mvnrepository.com/artifact/org.apache.maven.plugins/maven-compiler-plugin -->
+		<dependency>
+			<groupId>org.apache.maven.plugins</groupId>
+			<artifactId>maven-compiler-plugin</artifactId>
+			<version>${plugin.compiler.version}</version>
+		</dependency>
+	</dependencies>
+
+	<build>
+		<plugins>
+			<!-- maven编译插件 -->
+			<plugin>
+				<groupId>org.apache.maven.plugins</groupId>
+				<artifactId>maven-compiler-plugin</artifactId>
+				<version>${plugin.compiler.version}</version>
+				<configuration>
+					<source>${jdk.version}</source>
+					<target>${jdk.version}</target>
+					<encoding>${encoding}</encoding>
+				</configuration>
+			</plugin>
+			<!-- maven源代码打包 -->
+			<plugin>
+				<groupId>org.apache.maven.plugins</groupId>
+				<artifactId>maven-source-plugin</artifactId>
+				<version>${plugin.source.version}</version>
+				<executions>
+					<execution>
+						<id>attach-sources</id>
+						<goals>
+							<goal>jar</goal>
+						</goals>
+					</execution>
+				</executions>
+			</plugin>
+			<!-- maven编译javadoc -->
+			<plugin>
+				<groupId>org.apache.maven.plugins</groupId>
+				<artifactId>maven-javadoc-plugin</artifactId>
+				<version>${plugin.javadoc.version}</version>
+				<configuration>
+					<show>private</show>
+					<aggregate>true</aggregate>
+					<charset>${encoding}</charset>
+					<encoding>${encoding}</encoding>
+					<docencoding>${encoding}</docencoding>
+				</configuration>
+				<executions>
+					<execution>
+						<id>attach-javadocs</id>
+						<goals>
+							<goal>jar</goal>
+						</goals>
+					</execution>
+				</executions>
+			</plugin>
+			<plugin>
+				<groupId>org.apache.maven.plugins</groupId>
+				<artifactId>maven-war-plugin</artifactId>
+				<version>2.4</version>
+				<configuration>
+					<webXml>src\main\webapp\WEB-INF\web.xml</webXml>
+				</configuration>
+			</plugin>
+		</plugins>
+	</build>
+
+	<profiles>
+		<profile>
+			<id>liuyunpipi.xicp.net</id>
+			<activation>
+				<activeByDefault>true</activeByDefault>
+			</activation>
+			<repositories>
+				<repository>
+					<id>nexus.liuyunpipi.xicp.net</id>
+					<url>${nexus.host}/repository/maven-public/</url>
+					<releases>
+						<enabled>true</enabled>
+					</releases>
+					<snapshots>
+						<enabled>true</enabled>
+					</snapshots>
+				</repository>
+			</repositories>
+		</profile>
+	</profiles>
+
+	<distributionManagement>
+		<repository>
+			<id>nexus-releases</id>
+			<name>PPPark Nexus Release Repository</name>
+			<url>${nexus.host}/repository/maven-releases</url>
+		</repository>
+		<snapshotRepository>
+			<id>nexus-snapshots</id>
+			<name>PPPark Nexus Snapshot Repository</name>
+			<url>${nexus.host}/repository/maven-snapshots/</url>
+		</snapshotRepository>
+	</distributionManagement>
+</project>
