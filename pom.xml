@@ -3,7 +3,7 @@
 	<modelVersion>4.0.0</modelVersion>
 	<groupId>com.pipipark</groupId>
 	<artifactId>Web</artifactId>
-	<version>1.1</version>
+	<version>1.2</version>
 	<packaging>pom</packaging>
 	<name>PPPark-Web</name>
 
@@ -20,13 +20,14 @@
 		<plugin.source.version>3.0.0</plugin.source.version>
 		<plugin.compiler.version>3.5</plugin.compiler.version>
 		<nexus.host>http://www.pipipark.net:8081</nexus.host>
+		<pppark.version>1.2</pppark.version>
 	</properties>
 
 	<dependencies>
 		<dependency>
 			<groupId>com.pipipark</groupId>
 			<artifactId>Commons</artifactId>
-			<version>1.1</version>
+			<version>${pppark.version}</version>
 		</dependency>
 
 		<!-- servlet -->
